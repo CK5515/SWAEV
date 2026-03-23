@@ -56,16 +56,20 @@
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.06);
   margin-top: 2rem;
+  transition: border-color 0.3s;
+}
+.map-container:hover {
+  border-color: rgba(255,255,255,0.1);
 }
 .map-wrapper {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 .map-wrapper iframe {
   display: block;
   width: 100%;
   height: 320px;
-  /* Dark mode + suppress the original red pin */
   filter: 
     grayscale(1) 
     invert(1) 
@@ -73,8 +77,24 @@
     brightness(0.55)
     sepia(0.15)
     hue-rotate(180deg);
+  /* Prevent iframe from receiving any events */
+  pointer-events: none;
 }
-/* Custom pin - centered over the map */
+
+/* Transparent clickable overlay — covers entire map */
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  cursor: pointer;
+}
+/* Subtle highlight on hover */
+.map-overlay:hover ~ .map-pin .map-pin-label {
+  background: #fff;
+  color: #000;
+}
+
+/* Custom pin */
 .map-pin {
   position: absolute;
   top: 50%;
@@ -101,6 +121,8 @@
   border-radius: 4px;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: background 0.2s, color 0.2s;
+  position: relative;
 }
 .map-pin-label::before {
   content: '';
@@ -114,18 +136,41 @@
   border-right: 4px solid transparent;
   border-bottom: 4px solid #deff9a;
 }
+
+/* Caption bar */
 .map-caption {
   padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
   font-size: 0.75rem;
   color: rgba(255,255,255,0.4);
   background: rgba(255,255,255,0.02);
   border-top: 1px solid rgba(255,255,255,0.04);
 }
+.map-caption-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.map-open-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.map-open-link:hover {
+  color: #deff9a;
+  border-color: rgba(222, 255, 154, 0.3);
+}
 
-/* Pin drop animation */
+/* Pin animations */
 @keyframes pin-drop {
   0% {
     opacity: 0;
@@ -143,8 +188,8 @@
   }
 }
 
-/* Pulse ring around pin on hover */
-.map-wrapper:hover .map-pin::after {
+/* Pulse ring when hovering the map */
+.map-overlay:hover ~ .map-pin::after {
   content: '';
   position: absolute;
   top: 8px;
@@ -665,9 +710,15 @@
           </a>
         </div>
 
-        <!-- Google Maps -->
 <div class="map-container">
   <div class="map-wrapper">
+    <!-- Transparent overlay blocks map interaction -->
+    <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="map-overlay" 
+       title="Open in Google Maps">
+    </a>
     <iframe 
       src="https://www.google.com/maps?q=D02+XE80,+Dublin,+Ireland&z=16&output=embed"
       allowfullscreen="" 
@@ -676,28 +727,36 @@
       title="SWAEV Genomics Office Location - Dublin D02 XE80"
       style="border:0;">
     </iframe>
-    <!-- Custom pin overlay -->
+    <!-- Custom pin -->
     <div class="map-pin" aria-hidden="true">
       <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Pin shadow -->
         <ellipse cx="18" cy="47" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
-        <!-- Pin body -->
         <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="#deff9a"/>
-        <!-- Inner circle -->
         <circle cx="18" cy="18" r="7" fill="rgba(0,0,0,0.25)"/>
-        <!-- Inner dot -->
         <circle cx="18" cy="18" r="3.5" fill="#deff9a"/>
       </svg>
-      <!-- Label -->
       <div class="map-pin-label">SWAEV Genomics</div>
     </div>
   </div>
   <div class="map-caption">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
-      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-      <circle cx="12" cy="10" r="3"/>
-    </svg>
-    <span>Dublin, D02 XE80 · Based in Cork, Ireland</span>
+    <div class="map-caption-left">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>Dublin, D02 XE80 · Based in Cork, Ireland</span>
+    </div>
+    <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="map-open-link">
+      Open in Maps
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </a>
   </div>
 </div>
       </div>
