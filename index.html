@@ -40,7 +40,7 @@
         0%, 100% { opacity: 0.04; }
         50% { opacity: 0.08; }
       }
-
+      
       /* Utility classes */
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
       
@@ -50,7 +50,12 @@
         margin: 0 auto; 
         padding: 0 1.5rem; 
       }
-      
+      .map-container iframe {
+  display: block;
+  width: 100%;
+  height: 300px;
+  filter: grayscale(1) invert(1) contrast(1.1) brightness(0.6);
+}
       /* Tech tags - fix squishing */
       .tech-tags {
         display: flex;
@@ -553,17 +558,61 @@
         <!-- Google Maps -->
 <!-- Replace the existing map-container div with this -->
 
-<div class="map-container">
-  <iframe 
-    src="https://www.google.com/maps?q=SWAEV+Genomics,+D02+XE80,+Dublin,+Ireland&z=16&output=embed"
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade"
-    title="SWAEV Genomics Office Location - Dublin D02 XE80"
-    style="border:0;">
-  </iframe>
+<div class="map-container" style="position:relative;">
+  <div style="position:relative;overflow:hidden;">
+    <iframe 
+      src="https://www.google.com/maps?q=D02+XE80,+Dublin,+Ireland&z=16&output=embed"
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade"
+      title="SWAEV Genomics Office Location - Dublin D02 XE80"
+      style="border:0;">
+    </iframe>
+    
+    <!-- Custom pin overlay -->
+    <div style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    ">
+      <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pin shape -->
+        <path d="M18 0C8.059 0 0 8.059 0 18c0 13.5 18 30 18 30s18-16.5 18-30C36 8.059 27.941 0 18 0z" fill="#deff9a"/>
+        <!-- Inner circle -->
+        <circle cx="18" cy="18" r="7" fill="#000" fill-opacity="0.3"/>
+        <!-- Inner dot -->
+        <circle cx="18" cy="18" r="3.5" fill="#fff"/>
+        <!-- Pulse ring animation -->
+        <circle cx="18" cy="18" r="10" fill="none" stroke="#deff9a" stroke-width="1.5" opacity="0.6">
+          <animate attributeName="r" values="10;18;10" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <!-- Label -->
+      <div style="
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #deff9a;
+        color: #000;
+        font-size: 0.625rem;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+      ">SWAEV</div>
+    </div>
+  </div>
+  
   <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.5rem">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
       <circle cx="12" cy="10" r="3"/>
     </svg>
