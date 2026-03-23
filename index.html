@@ -50,11 +50,121 @@
         margin: 0 auto; 
         padding: 0 1.5rem; 
       }
-      .map-container iframe {
+/* Map */
+.map-container {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 2rem;
+}
+.map-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.map-wrapper iframe {
   display: block;
   width: 100%;
-  height: 300px;
-  filter: grayscale(1) invert(1) contrast(1.1) brightness(0.6);
+  height: 320px;
+  /* Dark mode + suppress the original red pin */
+  filter: 
+    grayscale(1) 
+    invert(1) 
+    contrast(1.05) 
+    brightness(0.55)
+    sepia(0.15)
+    hue-rotate(180deg);
+}
+/* Custom pin - centered over the map */
+.map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: pin-drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.map-pin svg {
+  filter: drop-shadow(0 4px 12px rgba(222, 255, 154, 0.3));
+}
+.map-pin-label {
+  margin-top: 6px;
+  background: #deff9a;
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.map-pin-label::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #deff9a;
+}
+.map-caption {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Pin drop animation */
+@keyframes pin-drop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -250%);
+  }
+  60% {
+    transform: translate(-50%, -95%);
+  }
+  80% {
+    transform: translate(-50%, -105%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%);
+  }
+}
+
+/* Pulse ring around pin on hover */
+.map-wrapper:hover .map-pin::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #deff9a;
+  animation: pin-pulse 1.5s ease-out infinite;
+}
+@keyframes pin-pulse {
+  0% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(3);
+  }
 }
       /* Tech tags - fix squishing */
       .tech-tags {
@@ -556,10 +666,8 @@
         </div>
 
         <!-- Google Maps -->
-<!-- Replace the existing map-container div with this -->
-
-<div class="map-container" style="position:relative;">
-  <div style="position:relative;overflow:hidden;">
+<div class="map-container">
+  <div class="map-wrapper">
     <iframe 
       src="https://www.google.com/maps?q=D02+XE80,+Dublin,+Ireland&z=16&output=embed"
       allowfullscreen="" 
@@ -568,55 +676,28 @@
       title="SWAEV Genomics Office Location - Dublin D02 XE80"
       style="border:0;">
     </iframe>
-    
     <!-- Custom pin overlay -->
-    <div style="
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -100%);
-      z-index: 10;
-      pointer-events: none;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
-    ">
-      <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Pin shape -->
-        <path d="M18 0C8.059 0 0 8.059 0 18c0 13.5 18 30 18 30s18-16.5 18-30C36 8.059 27.941 0 18 0z" fill="#deff9a"/>
+    <div class="map-pin" aria-hidden="true">
+      <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Pin shadow -->
+        <ellipse cx="18" cy="47" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
+        <!-- Pin body -->
+        <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="#deff9a"/>
         <!-- Inner circle -->
-        <circle cx="18" cy="18" r="7" fill="#000" fill-opacity="0.3"/>
+        <circle cx="18" cy="18" r="7" fill="rgba(0,0,0,0.25)"/>
         <!-- Inner dot -->
-        <circle cx="18" cy="18" r="3.5" fill="#fff"/>
-        <!-- Pulse ring animation -->
-        <circle cx="18" cy="18" r="10" fill="none" stroke="#deff9a" stroke-width="1.5" opacity="0.6">
-          <animate attributeName="r" values="10;18;10" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
+        <circle cx="18" cy="18" r="3.5" fill="#deff9a"/>
       </svg>
       <!-- Label -->
-      <div style="
-        position: absolute;
-        top: -2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #deff9a;
-        color: #000;
-        font-size: 0.625rem;
-        font-weight: 600;
-        font-family: 'JetBrains Mono', monospace;
-        padding: 0.2rem 0.5rem;
-        border-radius: 0.25rem;
-        white-space: nowrap;
-        letter-spacing: 0.05em;
-      ">SWAEV</div>
+      <div class="map-pin-label">SWAEV Genomics</div>
     </div>
   </div>
-  
-  <div style="padding:0.75rem 1rem;display:flex;align-items:center;gap:0.5rem">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <div class="map-caption">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
       <circle cx="12" cy="10" r="3"/>
     </svg>
-    <span style="font-size:0.75rem;color:rgba(255,255,255,0.4)">Dublin, D02 XE80 · Based in Cork, Ireland</span>
+    <span>Dublin, D02 XE80 · Based in Cork, Ireland</span>
   </div>
 </div>
       </div>
