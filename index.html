@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="UTF-8" />
+<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SWAEV Genomics — Interpretable AI for genomic sequence analysis. Novel wave-based neural network architecture with O(n log n) complexity." />
     <meta name="theme-color" content="#000000" />
@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <style>
+      <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
       body { 
@@ -40,182 +40,18 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      @keyframes pulse-soft {
-        0%, 100% { opacity: 0.04; }
-        50% { opacity: 0.08; }
-      }
-      
+
       /* Utility classes */
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
       
-      /* Section spacing fix */
+      /* Section spacing */
       .section-content { 
         max-width: 48rem; 
         margin: 0 auto; 
         padding: 0 1.5rem; 
       }
-/* Map */
-.map-container {
-  border-radius: 0.75rem;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  margin-top: 2rem;
-  transition: border-color 0.3s;
-}
-.map-container:hover {
-  border-color: rgba(255,255,255,0.1);
-}
-.map-wrapper {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.map-wrapper iframe {
-  display: block;
-  width: 100%;
-  height: 320px;
-  filter: 
-    grayscale(1) 
-    invert(1) 
-    contrast(1.05) 
-    brightness(0.55)
-    sepia(0.15)
-    hue-rotate(180deg);
-  /* Prevent iframe from receiving any events */
-  pointer-events: none;
-}
-
-/* Transparent clickable overlay — covers entire map */
-.map-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  cursor: pointer;
-}
-/* Subtle highlight on hover */
-.map-overlay:hover ~ .map-pin .map-pin-label {
-  background: #fff;
-  color: #000;
-}
-
-/* Custom pin */
-.map-pin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  z-index: 2;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: pin-drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-.map-pin svg {
-  filter: drop-shadow(0 4px 12px rgba(222, 255, 154, 0.3));
-}
-.map-pin-label {
-  margin-top: 6px;
-  background: #deff9a;
-  color: #000;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  transition: background 0.2s, color 0.2s;
-  position: relative;
-}
-.map-pin-label::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #deff9a;
-}
-
-/* Caption bar */
-.map-caption {
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.02);
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-.map-caption-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.map-open-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  font-size: 0.7rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-.map-open-link:hover {
-  color: #deff9a;
-  border-color: rgba(222, 255, 154, 0.3);
-}
-
-/* Pin animations */
-@keyframes pin-drop {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -250%);
-  }
-  60% {
-    transform: translate(-50%, -95%);
-  }
-  80% {
-    transform: translate(-50%, -105%);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -100%);
-  }
-}
-
-/* Pulse ring when hovering the map */
-.map-overlay:hover ~ .map-pin::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid #deff9a;
-  animation: pin-pulse 1.5s ease-out infinite;
-}
-@keyframes pin-pulse {
-  0% {
-    opacity: 0.6;
-    transform: translateX(-50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) scale(3);
-  }
-}
-      /* Tech tags - fix squishing */
+      
+      /* Tech tags */
       .tech-tags {
         display: flex;
         flex-wrap: wrap;
@@ -391,35 +227,167 @@
         transform: translateY(0);
       }
 
-      /* Map container */
+            /* Map */
       .map-container {
         border-radius: 0.75rem;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.06);
         margin-top: 2rem;
+        transition: border-color 0.3s;
       }
-      .map-container iframe {
+      .map-container:hover {
+        border-color: rgba(255,255,255,0.1);
+      }
+      .map-wrapper {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .map-wrapper iframe {
         display: block;
         width: 100%;
-        height: 300px;
-        filter: grayscale(1) invert(1) contrast(1.1) brightness(0.6);
+        height: 320px;
+        filter: 
+          grayscale(1) 
+          invert(1) 
+          contrast(1.05) 
+          brightness(0.55)
+          sepia(0.15)
+          hue-rotate(180deg);
+        /* Prevent iframe from receiving any events */
+        pointer-events: none;
       }
 
-      /* Status items */
-      .status-item {
+      /* Transparent clickable overlay — covers entire map */
+      .map-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        cursor: pointer;
+      }
+      /* Subtle highlight on hover */
+      .map-overlay:hover ~ .map-pin .map-pin-label {
+        background: #fff;
+        color: #000;
+      }
+
+      /* Custom pin */
+      .map-pin {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        z-index: 2;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: pin-drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .map-pin svg {
+        filter: drop-shadow(0 4px 12px rgba(222, 255, 154, 0.3));
+      }
+      .map-pin-label {
+        margin-top: 6px;
+        background: #deff9a;
+        color: #000;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        transition: background 0.2s, color 0.2s;
+        position: relative;
+      }
+      .map-pin-label::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid #deff9a;
+      }
+
+      /* Caption bar */
+      .map-caption {
+        padding: 0.75rem 1rem;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        padding: 0.25rem 0;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.4);
+        background: rgba(255,255,255,0.02);
+        border-top: 1px solid rgba(255,255,255,0.04);
       }
-      .status-dot {
-        width: 6px;
-        height: 6px;
+      .map-caption-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .map-open-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: rgba(255,255,255,0.35);
+        text-decoration: none;
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      .map-open-link:hover {
+        color: #deff9a;
+        border-color: rgba(222, 255, 154, 0.3);
+      }
+
+      /* Pin animations */
+      @keyframes pin-drop {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -250%);
+        }
+        60% {
+          transform: translate(-50%, -95%);
+        }
+        80% {
+          transform: translate(-50%, -105%);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(-50%, -100%);
+        }
+      }
+
+      /* Pulse ring when hovering the map */
+      .map-overlay:hover ~ .map-pin::after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        flex-shrink: 0;
+        border: 2px solid #deff9a;
+        animation: pin-pulse 1.5s ease-out infinite;
       }
-      .status-dot.done { background: #fff; }
-      .status-dot.pending { background: rgba(255,255,255,0.25); }
+      @keyframes pin-pulse {
+        0% {
+          opacity: 0.6;
+          transform: translateX(-50%) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) scale(3);
+        }
+      }
 
       /* Contact grid */
       .contact-grid {
@@ -477,7 +445,7 @@
         font-family: 'JetBrains Mono', monospace;
       }
 
-      /* Supported by section */
+      /* Partners grid */
       .partners-grid {
         display: grid;
         gap: 1rem;
@@ -570,8 +538,9 @@
           <span style="color:rgba(255,255,255,0.4);font-size:0.75rem;letter-spacing:0.1em">GENOMICS</span>
         </a>
         <div class="nav-links">
-          <a href="#research">Research</a>
-          <a href="#about">About</a>
+          <a href="#product">Product</a>
+          <a href="#technology">Technology</a>
+          <a href="#about">Company</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
@@ -582,89 +551,132 @@
       <canvas id="waveCanvas"></canvas>
       <div class="hero-content">
         <p class="font-mono" style="color:rgba(255,255,255,0.3);font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:2rem">Patent Pending</p>
-        <h1 style="font-size:clamp(1.875rem,5vw,3rem);font-weight:600;letter-spacing:-0.025em;line-height:1.2;margin-bottom:1.5rem">A new kind of neural network for genomic sequence analysis</h1>
-        <p style="color:rgba(255,255,255,0.45);font-size:clamp(1rem,2.5vw,1.125rem);max-width:36rem;margin:0 auto 2.5rem;line-height:1.6">Extending open-source wave field research with novel architectural contributions for DNA.</p>
-        <a href="#research" class="btn-outline">Learn more</a>
+        <h1 style="font-size:clamp(1.875rem,5vw,3rem);font-weight:600;letter-spacing:-0.025em;line-height:1.2;margin-bottom:1.5rem">Interpretable AI for genomic sequence analysis</h1>
+        <p style="color:rgba(255,255,255,0.45);font-size:clamp(1rem,2.5vw,1.125rem);max-width:36rem;margin:0 auto 2.5rem;line-height:1.6">Our wave based neural network delivers O(n log n) complexity with built in biological interpretability, unlocking new applications in drug discovery and synthetic biology.</p>
+        <a href="#product" class="btn-outline">Explore the platform</a>
       </div>
     </section>
 
     <div class="divider"><div class="divider-line"></div></div>
 
-    <!-- Research -->
-    <section id="research" class="section">
+    <!-- Product Section (new) -->
+    <section id="product" class="section">
       <div class="section-content">
-        <p class="section-label">Research</p>
-        <h2 class="section-title">What I'm working on</h2>
+        <p class="section-label">Product</p>
+        <h2 class="section-title">Interpretable genomic analysis API</h2>
         <div style="display:flex;flex-direction:column;gap:1.5rem" class="text-body">
-          <p>I'm developing novel extensions to an existing open-source neural network architecture, <a href="https://github.com/Pankh-AI/wave-field-llm" target="_blank" rel="noopener noreferrer" class="text-link">SPECTRE-Wave</a>, which replaces standard attention mechanisms with wave-based signal propagation, achieving sub-quadratic <span class="font-mono text-highlight" style="font-size:0.875rem">O(n log n)</span> complexity.</p>
-          <p>SPECTRE-Wave was designed for natural language with large vocabularies, complex token relationships. DNA has just 4 bases. That mismatch is the problem I'm interested in, and the extensions I'm building are specific to that constraint. The details are the subject of a pending patent application and are not disclosed publicly at this time.</p>
-          <p>I've built a working prototype and validated it on real genomic data including <span class="text-highlight">E. coli</span>, <span class="text-highlight">yeast</span>, and <span class="text-highlight">human chromosome 22</span>.</p>
-        </div>
-
-        <div style="margin-top:3.5rem">
-          <p class="section-label" style="margin-bottom:1.5rem">Status</p>
-          <div style="display:flex;flex-direction:column;gap:0.75rem">
-            <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Architecture design &amp; theoretical foundation</span></div>
-            <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Prototype implementation</span></div>
-            <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Validation on real genomic data</span></div>
-            <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Patent filing in progress</span></div>
-            <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Seeking GPU compute for scaling experiments</span></div>
-          </div>
-        </div>
-
-        <div class="ip-note">
-          <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6">
-            <span style="color:rgba(255,255,255,0.6);font-weight:500">Intellectual property note:</span> My extensions are built on SPECTRE-Wave (AGPL-3.0). The base architecture remains open source. My novel contributions are proprietary and subject to a pending patent application. Technical details are available under NDA.
-          </p>
+          <p>SWAEV Genomics is building a cloud based API that lets researchers and biotech companies to analyse DNA sequences with models that explain <strong>why</strong> they make predictions. Unlike "black box models", our architecture reveals the biological features (e.g. helical periodicity, regulatory motifs) driving each result.</p>
+          <p>Key use cases:</p>
+          <ul style="margin-left:1.5rem;list-style-type:disc;color:rgba(255,255,255,0.6)">
+            <li>Regulatory element discovery</li>
+            <li>Variant effect prediction</li>
+            <li>Synthetic promoter design</li>
+            <li>Genome scale functional annotation</li>
+          </ul>
+          <p>We are currently seeking early access partners to validate our platform on proprietary datasets.</p>
         </div>
       </div>
     </section>
 
     <div class="divider"><div class="divider-line"></div></div>
 
-    <!-- Company -->
-    <section id="company" class="section">
-      <div class="section-content">
-        <p class="section-label">Company</p>
-        <h2 class="section-title">SWAEV Genomics Ltd.</h2>
-        <p class="text-body">Registered in Ireland. SWAEV Genomics is building interpretable AI for genomic sequence analysis. Our novel wave-based architecture achieves sub-quadratic complexity while maintaining biological interpretability, unlike existing black-box models.</p>
-        <div class="info-row">
-          <div><span class="label font-mono">Registration:</span> Ireland</div>
-          <div><span class="label font-mono">HQ:</span> Cork, Ireland</div>
-          <div><span class="label font-mono">Office:</span> Dublin, D02 XE80</div>
-          <div><span class="label font-mono">Founded:</span> 2026</div>
-          <div><span class="label font-mono">Status:</span> Pre-revenue, R&amp;D phase</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"><div class="divider-line"></div></div>
-
-    <!-- Technology -->
+    <!-- Technology (renamed from Research) -->
     <section id="technology" class="section">
       <div class="section-content">
         <p class="section-label">Technology</p>
-        <h2 class="section-title">FFT-Based Wave Architecture</h2>
-        <p class="text-body">Our pipeline relies on Fast Fourier Transform (FFT) operations, requiring CUDA acceleration and high VRAM GPUs for genome-scale sequences. Current AMD RX 6500 XT limits us to 4 layers and 1024 field size — we need NVIDIA A100/H100 to scale to 12+ layers and full human genomes.</p>
+        <h2 class="section-title">Wave based neural architecture</h2>
+        <div style="display:flex;flex-direction:column;gap:1.5rem" class="text-body">
+          <p>Our platform extends the open source <a href="https://github.com/Pankh-AI/wave-field-llm" target="_blank" rel="noopener noreferrer" class="text-link">SPECTRE‑Wave</a> architecture with novel extensions designed specifically for DNA (vocabulary size = 4). The model replaces attention with wave propagation, achieving <span class="font-mono text-highlight" style="font-size:0.875rem">O(n log n)</span> complexity while maintaining full interpretability.</p>
+          <p>We have validated the architecture on <span class="text-highlight">E. coli</span>, <span class="text-highlight">yeast</span>, and <span class="text-highlight">human chromosome 22</span>. The model autonomously discovered DNA's helical periodicity (10.5bp), a result that was not programmed in.</p>
+          <p>Our prototype hardware (AMD RX 6500 XT) limits us to 4 layers and 1024 field size. To scale to full human genomes we need NVIDIA A100/H100 GPUs with CUDA and cuFFT optimisation.</p>
+        </div>
         <div class="tech-tags">
           <span class="tech-tag">CUDA</span>
           <span class="tech-tag">cuFFT</span>
           <span class="tech-tag">O(n log n)</span>
-          <span class="tech-tag">Interpretable by Design</span>
+          <span class="tech-tag">Interpretable by design</span>
+        </div>
+      </div> 
+    </section>
+
+    <div class="divider"><div class="divider-line"></div></div>
+
+    <!-- Status / Roadmap -->
+    <section id="status" class="section">
+      <div class="section-content">
+        <p class="section-label">Status</p>
+        <h2 class="section-title">Project roadmap</h2>
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
+          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Architecture design and theoretical foundation</span></div>
+          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Prototype implementation</span></div>
+          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Validation on real genomic data (E. coli, yeast, human chr22)</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Patent filing in progress</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Seeking GPU compute for scaling experiments</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Full genome modelling (requires A100/H100)</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Early access partner program</span></div>
         </div>
       </div>
     </section>
 
     <div class="divider"><div class="divider-line"></div></div>
 
-    <!-- About -->
+    <!-- Company / About -->
     <section id="about" class="section">
       <div class="section-content">
-        <p class="section-label">About</p>
-        <h2 class="section-title">Who's behind this</h2>
-        <div style="display:flex;flex-direction:column;gap:1.5rem" class="text-body">
-          <p>Cyprian Kukielka is the Founder and Lead Researcher at SWAEV Genomics. Self-taught in machine learning and Fourier analysis, he designed and built upon Spectre-Wave architecture. The company is based in Cork, Ireland with a registered office in Dublin (D02 XE80).</p>
-          <p>Prior to founding SWAEV Genomics, Cyprian built and validated the architecture on real genomic data (E. coli, yeast, human chr22), discovered DNA's helical pitch without supervision, and filed a provisional patent. The company is now seeking compute partnerships to scale to full human genomes.</p>
+        <p class="section-label">Company</p>
+        <h2 class="section-title">SWAEV Genomics Ltd.</h2>
+        <p class="text-body">SWAEV Genomics is an Irish registered company building interpretable AI for genomic analysis. We combine signal processing with deep learning to make biological predictions transparent and trustworthy.</p>
+        <div class="info-row">
+          <div><span class="label font-mono">HQ:</span> Cork, Ireland</div>
+          <div><span class="label font-mono">Registered office:</span> Dublin, D02 XE80</div>
+          <div><span class="label font-mono">Founded:</span> 2026</div>
+          <div><span class="label font-mono">Status:</span> Pre‑revenue, R&amp;D</div>
+        </div>
+
+        <div style="margin-top:2rem">
+          <p class="section-label" style="margin-bottom:1rem">Team</p>
+          <div style="border:1px solid rgba(255,255,255,0.06);border-radius:0.5rem;padding:1.5rem">
+            <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center">
+              <div>
+                <p style="font-weight:500;margin-bottom:0.25rem">Cyprian Kukielka</p>
+                <p style="color:rgba(255,255,255,0.4);font-size:0.875rem">Founder & Lead Researcher</p>
+                <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-top:0.5rem">Self‑taught in machine learning and Fourier analysis. Built the wave architecture from scratch and filed a provisional patent.</p>
+              </div>
+              <div>
+                <p style="font-weight:500;margin-bottom:0.25rem">Nojus Valatka</p>
+                <p style="color:rgba(255,255,255,0.4);font-size:0.875rem">Company Secretary / Operations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"><div class="divider-line"></div></div>
+
+    <!-- Partners -->
+    <section id="partners" class="section">
+      <div class="section-content">
+        <p class="section-label">Supported by</p>
+        <h2 class="section-title">Partners & Programs</h2>
+        <div class="partners-grid">
+          <div class="partner-card">
+            <div class="partner-header">
+              <span class="partner-name">
+                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+                <span style="color:rgba(255,255,255,0.45);margin-left:0.25rem">Cloud</span>
+              </span>
+              <span class="partner-badge">for Startups</span>
+            </div>
+            <p class="partner-desc">Google for Startups Cloud Program applicant —> pending approval</p>
+          </div>
+          <div class="partner-card pending">
+            <div class="partner-header">
+              <span class="partner-name" style="color:rgba(255,255,255,0.7)">NVIDIA Inception</span>
+              <span class="partner-badge">pending</span>
+            </div>
+            <p class="partner-desc">Application submitted —> awaiting decision</p>
+          </div>
         </div>
       </div>
     </section>
@@ -676,10 +688,8 @@
       <div class="section-content">
         <p class="section-label">Contact</p>
         <h2 class="section-title">Get in touch</h2>
-        <p class="text-body" style="margin-bottom:0.5rem">For partnership enquiries, compute collaboration, or anything else.</p>
-
+        <p class="text-body" style="margin-bottom:0.5rem">For partnership enquiries, early access requests, or compute collaboration.</p>
         <div class="contact-grid">
-          <!-- Email -->
           <a href="mailto:contact@swaev.com" class="contact-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -687,24 +697,18 @@
             </svg>
             <span>contact@swaev.com</span>
           </a>
-
-          <!-- LinkedIn -->
           <a href="https://www.linkedin.com/in/cyprian-kukielka-b4a76538b/" target="_blank" rel="noopener noreferrer" class="contact-btn">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
             <span>LinkedIn</span>
           </a>
-
-          <!-- GitHub -->
           <a href="https://github.com/ck5515" target="_blank" rel="noopener noreferrer" class="contact-btn">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
             </svg>
             <span>GitHub</span>
           </a>
-
-          <!-- Google Developer Profile -->
           <a href="https://g.dev/ck5515" target="_blank" rel="noopener noreferrer" class="contact-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
@@ -714,84 +718,53 @@
           </a>
         </div>
 
-<div class="map-container">
-  <div class="map-wrapper">
-    <!-- Transparent overlay blocks map interaction -->
-    <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="map-overlay" 
-       title="Open in Google Maps">
-    </a>
-    <iframe 
-      src="https://www.google.com/maps?q=D02+XE80,+Dublin,+Ireland&z=16&output=embed"
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade"
-      title="SWAEV Genomics Office Location - Dublin D02 XE80"
-      style="border:0;">
-    </iframe>
-    <!-- Custom pin -->
-    <div class="map-pin" aria-hidden="true">
-      <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="18" cy="47" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
-        <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="#deff9a"/>
-        <circle cx="18" cy="18" r="7" fill="rgba(0,0,0,0.25)"/>
-        <circle cx="18" cy="18" r="3.5" fill="#deff9a"/>
-      </svg>
-      <div class="map-pin-label">SWAEV Genomics</div>
-    </div>
-  </div>
-  <div class="map-caption">
-    <div class="map-caption-left">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-        <circle cx="12" cy="10" r="3"/>
-      </svg>
-      <span>Dublin, D02 XE80 · Based in Cork, Ireland</span>
-    </div>
-    <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="map-open-link">
-      Open in Maps
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-        <polyline points="15 3 21 3 21 9"/>
-        <line x1="10" y1="14" x2="21" y2="3"/>
-      </svg>
-    </a>
-  </div>
-</div>
-      </div>
-    </section>
-
-    <div class="divider"><div class="divider-line"></div></div>
-
-    <!-- Partners / Supported by -->
-    <section id="partners" class="section">
-      <div class="section-content">
-        <p class="section-label">Supported by</p>
-        <h2 class="section-title">Partners &amp; Programs</h2>
-
-        <div class="partners-grid">
-          <div class="partner-card">
-            <div class="partner-header">
-              <span class="partner-name">
-                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-                <span style="color:rgba(255,255,255,0.45);margin-left:0.25rem">Cloud</span>
-              </span>
-              <span class="partner-badge">for Startups</span>
+        <div class="map-container">
+          <div class="map-wrapper">
+            <!-- Transparent overlay blocks map interaction -->
+            <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="map-overlay" 
+              title="Open in Google Maps">
+            </a>
+            <iframe 
+              src="https://www.google.com/maps?q=D02+XE80,+Dublin,+Ireland&z=16&output=embed"
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="SWAEV Genomics Office Location - Dublin D02 XE80"
+              style="border:0;">
+            </iframe>
+            <!-- Custom pin -->
+            <div class="map-pin" aria-hidden="true">
+              <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="18" cy="47" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
+                <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="#deff9a"/>
+                <circle cx="18" cy="18" r="7" fill="rgba(0,0,0,0.25)"/>
+                <circle cx="18" cy="18" r="3.5" fill="#deff9a"/>
+              </svg>
+              <div class="map-pin-label">SWAEV Genomics</div>
             </div>
-            <p class="partner-desc">Google for Startups Cloud Program applicant — pending approval</p>
           </div>
-
-          <div class="partner-card pending">
-            <div class="partner-header">
-              <span class="partner-name" style="color:rgba(255,255,255,0.7)">NVIDIA Inception</span>
-              <span class="partner-badge">pending</span>
+          <div class="map-caption">
+            <div class="map-caption-left">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Dublin, D02 XE80 · Based in Cork, Ireland</span>
             </div>
-            <p class="partner-desc">Application submitted — awaiting decision</p>
+            <a href="https://www.google.com/maps/search/D02+XE80,+Dublin,+Ireland" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="map-open-link">
+              Open in Maps
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
