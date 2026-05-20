@@ -1,44 +1,125 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
   <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SWAEV Genomics /// Interpretable AI for genomic sequence analysis. Novel wave-based neural network architecture with O(n log n) complexity." />
-    <meta name="theme-color" content="#000000" />
+    
+    <!-- Adaptive Theme Colors -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+    
     <title>SWAEV Genomics | Interpretable AI for Genomic Analysis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-      <style>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="SWAEV" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <style>
+      /* --- Light / Dark Mode Variables --- */
+      :root {
+        --bg-color: #ffffff;
+        --text-primary: #111827;
+        --text-secondary: rgba(17, 24, 39, 0.7);
+        --text-muted: rgba(17, 24, 39, 0.5);
+        --text-light: rgba(17, 24, 39, 0.4);
+        
+        --border-light: rgba(0, 0, 0, 0.08);
+        --border-medium: rgba(0, 0, 0, 0.15);
+        --border-hover: rgba(0, 0, 0, 0.25);
+        
+        --nav-bg: rgba(255, 255, 255, 0.8);
+        --btn-hover-bg: rgba(0, 0, 0, 0.04);
+        --selection-bg: rgba(0, 0, 0, 0.15);
+        --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+        
+        /* Light Mode Brand: Pastel Blue (#B3E3FA) for fills/buttons */
+        --brand: #B3E3FA;
+        --brand-alpha: rgba(179, 227, 250, 0.6);
+        --brand-contrast: #000000;
+        --brand-text: #057DB5; 
+        
+        /* Light Mode Graphics: Deeper, saturated blue for line-art contrast on white */
+        --bg-graphic-color: #0EA5E9; 
+        --wave-color: 14, 165, 233; /* RGB of #0EA5E9 */
+        --wave-alpha-base: 0.5; /* Lowered slightly since color is richer */
+        --float-opacity-base: 0.35; /* Crisp visibility without distraction */
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-color: #000000;
+          --text-primary: #ffffff;
+          --text-secondary: rgba(255, 255, 255, 0.75);
+          --text-muted: rgba(255, 255, 255, 0.45);
+          --text-light: rgba(255, 255, 255, 0.35);
+          
+          --border-light: rgba(255, 255, 255, 0.06);
+          --border-medium: rgba(255, 255, 255, 0.15);
+          --border-hover: rgba(255, 255, 255, 0.25);
+          
+          --nav-bg: rgba(0, 0, 0, 0.7);
+          --btn-hover-bg: rgba(255, 255, 255, 0.06);
+          --selection-bg: rgba(255, 255, 255, 0.3);
+          --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+          
+          /* Dark Mode Brand: Neon Green (#deff9a) */
+          --brand: #deff9a;
+          --brand-alpha: rgba(222, 255, 154, 0.25);
+          --brand-contrast: #000000;
+          --brand-text: #deff9a;
+          
+          /* Dark Mode Graphics: Matches brand exactly */
+          --bg-graphic-color: #deff9a;
+          --wave-color: 222, 255, 154;
+          --wave-alpha-base: 0.35;
+          --float-opacity-base: 0.15;
+        }
+      }
+
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
+      
       body { 
-        background: #000; 
-        color: #fff; 
+        background: var(--bg-color); 
+        color: var(--text-primary); 
         font-family: 'Inter', system-ui, -apple-system, sans-serif; 
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       
       /* Scrollbar */
-      * { scrollbar-width: thin; scrollbar-color: #ffffff26 transparent; }
+      * { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) transparent; }
       ::-webkit-scrollbar { width: 5px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #ffffff26; border-radius: 3px; }
-      ::selection { color: #fff; background: #fff3; }
+      ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+      ::selection { color: var(--text-primary); background: var(--selection-bg); }
 
       /* Animations */
       @keyframes drift {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-12px); }
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-16px) rotate(3deg); }
       }
       @keyframes fade-in-up {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
+      }
+      /* Pulse animation for bio-doodles */
+      @keyframes bio-pulse {
+        0%, 100% { filter: drop-shadow(0 0 2px var(--brand-alpha)); }
+        50% { filter: drop-shadow(0 0 8px var(--bg-graphic-color)); }
+      }
+      /* Pulse for active roadmap item */
+      @keyframes dot-pulse {
+        0% { box-shadow: 0 0 0 0 var(--brand-alpha); }
+        70% { box-shadow: 0 0 0 8px rgba(0,0,0,0); }
+        100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
       }
 
       /* Utility classes */
@@ -61,49 +142,46 @@
       .tech-tag {
         font-size: 0.75rem;
         padding: 0.5rem 1rem;
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border-light);
         border-radius: 9999px;
-        color: rgba(255,255,255,0.45);
+        color: var(--text-muted);
         white-space: nowrap;
         transition: all 0.2s;
       }
       .tech-tag:hover {
-        border-color: rgba(255,255,255,0.2);
-        color: rgba(255,255,255,0.7);
+        border-color: var(--border-hover);
+        color: var(--text-secondary);
       }
 
       /* Partner cards */
       .partner-card {
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid var(--border-light);
         border-radius: 0.5rem;
         padding: 1.5rem 1.75rem;
         transition: border-color 0.3s;
       }
       .partner-card:hover {
-        border-color: rgba(255,255,255,0.12);
-      }
-      .partner-card.pending {
-        opacity: 0.5;
+        border-color: var(--border-hover);
       }
 
-      /* Contact buttons */
+      /* Contact button */
       .contact-btn {
         display: inline-flex;
         align-items: center;
         gap: 0.75rem;
         padding: 0.75rem 1.5rem;
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid var(--border-medium);
         border-radius: 0.5rem;
-        color: rgba(255,255,255,0.7);
+        color: var(--text-secondary);
         text-decoration: none;
         font-size: 0.875rem;
         transition: all 0.25s ease;
         background: transparent;
       }
       .contact-btn:hover {
-        border-color: rgba(255,255,255,0.25);
-        color: #fff;
-        background: rgba(255,255,255,0.03);
+        border-color: var(--brand);
+        color: var(--brand-text);
+        background: var(--brand-alpha);
         transform: translateY(-1px);
       }
       .contact-btn svg {
@@ -112,14 +190,18 @@
         flex-shrink: 0;
       }
 
-      /* Divider */
+      /* Divider Line */
       .divider {
         max-width: 80rem;
         margin: 0 auto;
         padding: 0 1.5rem;
       }
       .divider-line {
-        border-top: 1px solid rgba(255,255,255,0.06);
+        height: 1px;
+        border: none;
+        background: linear-gradient(90deg, transparent, var(--bg-graphic-color), transparent);
+        box-shadow: 0 0 8px var(--brand-alpha);
+        opacity: 0.65;
       }
 
       /* Nav */
@@ -127,10 +209,11 @@
         position: fixed;
         top: 0; left: 0; right: 0;
         z-index: 50;
-        background: rgba(0,0,0,0.7);
+        background: var(--nav-bg);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(255,255,255,0.04);
+        border-bottom: 1px solid var(--border-light);
+        transition: background-color 0.3s ease;
       }
       .nav-inner {
         max-width: 64rem;
@@ -154,12 +237,12 @@
       }
       .nav-links a {
         font-size: 0.75rem;
-        color: rgba(255,255,255,0.45);
+        color: var(--text-muted);
         text-decoration: none;
         letter-spacing: 0.025em;
         transition: color 0.2s;
       }
-      .nav-links a:hover { color: #fff; }
+      .nav-links a:hover { color: var(--text-primary); }
       @media (min-width: 640px) {
         .nav-links { display: flex; }
       }
@@ -190,7 +273,7 @@
 
       /* Section titles */
       .section-label {
-        color: rgba(255,255,255,0.35);
+        color: var(--text-light);
         font-size: 0.75rem;
         font-family: 'JetBrains Mono', monospace;
         letter-spacing: 0.2em;
@@ -216,6 +299,31 @@
         .section { padding: 8rem 0; }
       }
 
+      /* Status Dots */
+      .status-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .status-dot.done {
+        background: var(--bg-graphic-color);
+        box-shadow: 0 0 6px var(--brand-alpha);
+      }
+      .status-dot.active {
+        background: var(--bg-graphic-color);
+        animation: dot-pulse 2s infinite;
+      }
+      .status-dot.pending {
+        border: 1px solid var(--text-light);
+        background: transparent;
+      }
+
       /* Fade-in on scroll */
       .fade-section {
         opacity: 0;
@@ -227,16 +335,16 @@
         transform: translateY(0);
       }
 
-            /* Map */
+      /* Map */
       .map-container {
         border-radius: 0.75rem;
         overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid var(--border-light);
         margin-top: 2rem;
         transition: border-color 0.3s;
       }
       .map-container:hover {
-        border-color: rgba(255,255,255,0.1);
+        border-color: var(--border-hover);
       }
       .map-wrapper {
         position: relative;
@@ -247,31 +355,27 @@
         display: block;
         width: 100%;
         height: 320px;
-        filter: 
-          grayscale(1) 
-          invert(1) 
-          contrast(1.05) 
-          brightness(0.55)
-          sepia(0.15)
-          hue-rotate(180deg);
-        /* Prevent iframe from receiving any events */
+        filter: grayscale(1) contrast(1.05) brightness(1.05); /* Light Mode */
         pointer-events: none;
       }
+      @media (prefers-color-scheme: dark) {
+        .map-wrapper iframe {
+          filter: grayscale(1) invert(1) contrast(1.05) brightness(0.55) sepia(0.15) hue-rotate(180deg);
+        }
+      }
 
-      /* Transparent clickable overlay — covers entire map */
       .map-overlay {
         position: absolute;
         inset: 0;
         z-index: 3;
         cursor: pointer;
       }
-      /* Subtle highlight on hover */
       .map-overlay:hover ~ .map-pin .map-pin-label {
-        background: #fff;
-        color: #000;
+        background: var(--text-primary);
+        color: var(--bg-color);
       }
 
-      /* Custom pin */
+      /* Custom map pin */
       .map-pin {
         position: absolute;
         top: 50%;
@@ -285,19 +389,19 @@
         animation: pin-drop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
       }
       .map-pin svg {
-        filter: drop-shadow(0 4px 12px rgba(222, 255, 154, 0.3));
+        filter: drop-shadow(0 4px 12px var(--brand-alpha));
       }
       .map-pin-label {
         margin-top: 6px;
-        background: #deff9a;
-        color: #000;
+        background: var(--brand);
+        color: var(--brand-contrast);
         font-size: 0.65rem;
         font-weight: 600;
         letter-spacing: 0.04em;
         padding: 0.25rem 0.6rem;
         border-radius: 4px;
         white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         transition: background 0.2s, color 0.2s;
         position: relative;
       }
@@ -311,19 +415,22 @@
         height: 0;
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
-        border-bottom: 4px solid #deff9a;
+        border-bottom: 4px solid var(--brand);
+        transition: border-color 0.2s;
+      }
+      .map-overlay:hover ~ .map-pin .map-pin-label::before {
+        border-bottom-color: var(--text-primary);
       }
 
-      /* Caption bar */
       .map-caption {
         padding: 0.75rem 1rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: 0.75rem;
-        color: rgba(255,255,255,0.4);
-        background: rgba(255,255,255,0.02);
-        border-top: 1px solid rgba(255,255,255,0.04);
+        color: var(--text-muted);
+        background: var(--btn-hover-bg);
+        border-top: 1px solid var(--border-light);
       }
       .map-caption-left {
         display: flex;
@@ -334,38 +441,26 @@
         display: inline-flex;
         align-items: center;
         gap: 0.35rem;
-        color: rgba(255,255,255,0.35);
+        color: var(--text-light);
         text-decoration: none;
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border-light);
         border-radius: 4px;
         transition: all 0.2s;
       }
       .map-open-link:hover {
-        color: #deff9a;
-        border-color: rgba(222, 255, 154, 0.3);
+        color: var(--brand-text);
+        border-color: var(--brand);
+        background: var(--brand-alpha);
       }
 
-      /* Pin animations */
       @keyframes pin-drop {
-        0% {
-          opacity: 0;
-          transform: translate(-50%, -250%);
-        }
-        60% {
-          transform: translate(-50%, -95%);
-        }
-        80% {
-          transform: translate(-50%, -105%);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(-50%, -100%);
-        }
+        0% { opacity: 0; transform: translate(-50%, -250%); }
+        60% { transform: translate(-50%, -95%); }
+        80% { transform: translate(-50%, -105%); }
+        100% { opacity: 1; transform: translate(-50%, -100%); }
       }
-
-      /* Pulse ring when hovering the map */
       .map-overlay:hover ~ .map-pin::after {
         content: '';
         position: absolute;
@@ -375,44 +470,17 @@
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        border: 2px solid #deff9a;
+        border: 2px solid var(--bg-graphic-color);
         animation: pin-pulse 1.5s ease-out infinite;
       }
       @keyframes pin-pulse {
-        0% {
-          opacity: 0.6;
-          transform: translateX(-50%) scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: translateX(-50%) scale(3);
-        }
-      }
-
-      /* Contact grid */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-        margin-top: 2rem;
-      }
-      @media (min-width: 640px) {
-        .contact-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      /* IP note box */
-      .ip-note {
-        margin-top: 3.5rem;
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 0.5rem;
-        padding: 1.5rem;
+        0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+        100% { opacity: 0; transform: translateX(-50%) scale(3); }
       }
 
       /* Footer */
       footer {
-        border-top: 1px solid rgba(255,255,255,0.04);
+        border-top: 1px solid var(--border-light);
         padding: 2rem 0;
       }
       .footer-inner {
@@ -430,27 +498,60 @@
           justify-content: space-between;
         }
       }
+      
+      .footer-link {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-link:hover {
+        color: var(--text-secondary);
+      }
 
-      /* Company info items */
+      /* Company info grid */
       .info-row {
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
         margin-top: 1.5rem;
         font-size: 0.875rem;
-        color: rgba(255,255,255,0.45);
+        color: var(--text-muted);
       }
       .info-row span.label {
-        color: rgba(255,255,255,0.6);
+        color: var(--text-secondary);
         font-family: 'JetBrains Mono', monospace;
       }
 
-      /* Partners grid */
-      .partners-grid {
+      /* Team Member Grid Layout */
+      .team-grid {
         display: grid;
-        gap: 1rem;
-        margin-top: 0.5rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
       }
+      @media (min-width: 640px) {
+        .team-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* Modern Social Button for Team section */
+      .team-social-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem;
+        border-radius: 0.375rem;
+        color: var(--text-muted);
+        background: var(--btn-hover-bg);
+        transition: all 0.2s ease;
+      }
+      .team-social-btn:hover {
+        color: var(--brand-text);
+        background: var(--brand-alpha);
+        transform: translateY(-2px);
+      }
+
+      /* Partners */
       .partner-card .partner-header {
         display: flex;
         align-items: center;
@@ -465,13 +566,13 @@
       .partner-card .partner-badge {
         font-size: 0.7rem;
         font-family: 'JetBrains Mono', monospace;
-        color: rgba(255,255,255,0.35);
+        color: var(--text-light);
         padding: 0.15rem 0.5rem;
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border-light);
         border-radius: 9999px;
       }
       .partner-card .partner-desc {
-        color: rgba(255,255,255,0.4);
+        color: var(--text-muted);
         font-size: 0.875rem;
         line-height: 1.5;
       }
@@ -482,50 +583,59 @@
       .g-yellow { color: #FBBC05; }
       .g-green { color: #34A853; }
 
-      /* Math symbols background */
-      .math-bg {
+      /* Floating DNA elements background */
+      .float-bg {
         position: fixed;
         inset: 0;
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
       }
-      .math-sym {
+      .bio-doodle {
         position: absolute;
-        font-family: 'JetBrains Mono', monospace;
-        color: #fff;
+        color: var(--bg-graphic-color); /* Richer color in light mode for visibility */
         user-select: none;
+        transition: color 0.3s ease;
+      }
+      .bio-doodle svg {
+        width: 100%;
+        height: 100%;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
       }
 
-      /* Button base */
+      /* Buttons & Links */
       .btn-outline {
         display: inline-block;
         padding: 0.625rem 1.5rem;
         font-size: 0.875rem;
-        border: 1px solid rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.7);
+        border: 1px solid var(--border-medium);
+        color: var(--text-secondary);
         border-radius: 0.25rem;
         text-decoration: none;
         transition: all 0.25s;
       }
       .btn-outline:hover {
-        color: #fff;
-        border-color: rgba(255,255,255,0.3);
+        color: var(--text-primary);
+        border-color: var(--brand);
+        background: var(--brand-alpha);
       }
 
       /* Text styling */
-      .text-body { color: rgba(255,255,255,0.6); line-height: 1.7; }
-      .text-muted { color: rgba(255,255,255,0.4); }
-      .text-highlight { color: rgba(255,255,255,0.8); }
+      .text-body { color: var(--text-secondary); line-height: 1.7; }
+      .text-muted { color: var(--text-muted); }
+      .text-highlight { color: var(--text-primary); font-weight: 500; }
       a.text-link {
-        color: rgba(255,255,255,0.8);
+        color: var(--text-primary);
         text-decoration: underline;
         text-underline-offset: 4px;
-        text-decoration-color: rgba(255,255,255,0.25);
+        text-decoration-color: var(--border-hover);
         transition: text-decoration-color 0.2s;
       }
       a.text-link:hover {
-        text-decoration-color: rgba(255,255,255,0.6);
+        text-decoration-color: var(--brand);
       }
     </style>
   </head>
@@ -534,8 +644,8 @@
     <nav>
       <div class="nav-inner">
         <a href="#" class="nav-brand">
-          <span style="color:#fff;font-weight:600;letter-spacing:0.1em;font-size:0.875rem">SWAEV</span>
-          <span style="color:rgba(255,255,255,0.4);font-size:0.75rem;letter-spacing:0.1em">GENOMICS</span>
+          <span style="color:var(--text-primary);font-weight:600;letter-spacing:0.1em;font-size:0.875rem">SWAEV</span>
+          <span style="color:var(--text-muted);font-size:0.75rem;letter-spacing:0.1em">GENOMICS</span>
         </a>
         <div class="nav-links">
           <a href="#product">Product</a>
@@ -548,30 +658,34 @@
 
     <!-- Hero -->
     <section class="hero">
+      <!-- High-fidelity wave background canvas -->
       <canvas id="waveCanvas"></canvas>
       <div class="hero-content">
-        <p class="font-mono" style="color:rgba(255,255,255,0.3);font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:2rem">Patent Pending <br>PTIE20260000000226</p>
+        <p class="font-mono" style="color:var(--text-light);font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:2rem">Patent Pending <br>PTIE20260000000226</p>
         <h1 style="font-size:clamp(1.875rem,5vw,3rem);font-weight:600;letter-spacing:-0.025em;line-height:1.2;margin-bottom:1.5rem">Interpretable AI for genomic sequence analysis</h1>
-        <p style="color:rgba(255,255,255,0.45);font-size:clamp(1rem,2.5vw,1.125rem);max-width:36rem;margin:0 auto 2.5rem;line-height:1.6">Our wave based neural network delivers O(n log n) complexity with built in biological interpretability, unlocking new applications in drug discovery and synthetic biology.</p>
-        <a href="#product" class="btn-outline">Explore the platform</a>
+        <p style="color:var(--text-secondary);font-size:clamp(1rem,2.5vw,1.125rem);max-width:36rem;margin:0 auto 2.5rem;line-height:1.6">Our wave based neural network delivers O(n log n) complexity with built in biological interpretability, unlocking new applications in drug discovery and synthetic biology.</p>
+        <a href="#technology" class="btn-outline">Explore the technology</a>
       </div>
     </section>
 
     <div class="divider"><div class="divider-line"></div></div>
 
-    <!-- Product Section (new) -->
+    <!-- Product Section -->
     <section id="product" class="section">
       <div class="section-content">
         <p class="section-label">Product</p>
         <h2 class="section-title">Interpretable genomic analysis API</h2>
         <div style="display:flex;flex-direction:column;gap:1.5rem" class="text-body">
-          <p>SWAEV Genomics is building a cloud based API that lets researchers and biotech companies to analyse DNA sequences with models that explain <strong>why</strong> they make predictions. Unlike "black box models", our architecture reveals the biological features (e.g. helical periodicity, regulatory motifs) driving each result.</p>
+          <p>SWAEV Genomics is building a cloud based API that lets researchers and biotech companies to analyse DNA sequences with models that explain <strong>why</strong> they make predictions. Unlike traditional "black box models", our architecture reveals the biological features (e.g. helical periodicity, regulatory motifs) driving each result.</p>
+          
+          <p>SWAEV can also operate as a specialized expert within larger <strong>Mixture of Experts (MoE)</strong> systems, acting as an "interpretability layer" that grounds foundational LLMs by explaining the reasoning behind complex DNA analysis results.</p>
+          
           <p>Key use cases:</p>
-          <ul style="margin-left:1.5rem;list-style-type:disc;color:rgba(255,255,255,0.6)">
+          <ul style="margin-left:1.5rem;list-style-type:disc;color:var(--text-secondary)">
             <li>Regulatory element discovery</li>
             <li>Variant effect prediction</li>
             <li>Synthetic promoter design</li>
-            <li>Genome scale functional annotation</li>
+            <li>"Why" layer interpretability for MoE architectures</li>
           </ul>
           <p>We are currently seeking early access partners to validate our platform on proprietary datasets.</p>
         </div>
@@ -580,20 +694,28 @@
 
     <div class="divider"><div class="divider-line"></div></div>
 
-    <!-- Technology (renamed from Research) -->
+    <!-- Technology -->
     <section id="technology" class="section">
       <div class="section-content">
         <p class="section-label">Technology</p>
         <h2 class="section-title">Wave based neural architecture</h2>
         <div style="display:flex;flex-direction:column;gap:1.5rem" class="text-body">
-          <p>Our platform extends the open source <a href="https://github.com/Pankh-AI/wave-field-llm" target="_blank" rel="noopener noreferrer" class="text-link">SPECTRE‑Wave</a> architecture with novel extensions designed specifically for DNA (vocabulary size = 4). The model replaces attention with wave propagation, achieving <span class="font-mono text-highlight" style="font-size:0.875rem">O(n log n)</span> complexity while maintaining full interpretability.</p>
-          <p>We have validated the architecture on <span class="text-highlight">E. coli</span>, <span class="text-highlight">yeast</span>, and <span class="text-highlight">human chromosome 22</span>. The model autonomously discovered DNA's helical periodicity (10.5bp), a result that was not programmed in.</p>
-          <p>Our prototype hardware (AMD RX 6500 XT) limits us to 4 layers and 1024 field size. To scale to full human genomes we need NVIDIA A100/H100 GPUs with CUDA and cuFFT optimisation.</p>
+          <p>Our platform extends the open source <a href="https://github.com/Pankh-AI/wave-field-llm" target="_blank" rel="noopener noreferrer" class="text-link">SPECTRE‑Wave</a> architecture with novel extensions designed specifically for DNA (vocabulary size = 4). Unlike standard Transformer models which use O(n²) attention algorithms that struggle with the massive scale of genomic data, our model replaces attention with wave propagation. This achieves a highly scalable <span class="font-mono text-highlight" style="font-size:0.875rem">O(n log n)</span> complexity, enabling multi-million base pair context windows while maintaining full interpretability.</p>
+          <p>We have validated the architecture on <span class="text-highlight">E. coli</span>, <span class="text-highlight">yeast</span>, and <span class="text-highlight">human chromosome 22</span>. During testing, the model autonomously discovered DNA's helical periodicity (10.5bp)—an emergent result that was not programmed in.</p>
+          
+          <div style="border-left: 2px solid var(--bg-graphic-color); padding-left: 1.25rem; margin: 0.5rem 0;">
+            <p style="font-size: 0.95rem; color: var(--text-primary); line-height: 1.5;">
+              <strong>Current Hardware Setup:</strong> We are actively developing and training our early models on an on-site, repurposed HP ProLiant DL380p Gen8 server, utilizing a "frankensteined" RTX 3060 12GB mounted to the top. This scrappy local cluster allows us to rapidly iterate on our architecture and mathematical foundations. 
+            </p>
+          </div>
+          
+          <p>To scale beyond our current prototype hardware to full human genomes, we are actively seeking compute partnerships utilizing NVIDIA A100/H100 clusters or Google TPUs (v5e/v5p).</p>
         </div>
         <div class="tech-tags">
           <span class="tech-tag">CUDA</span>
           <span class="tech-tag">cuFFT</span>
           <span class="tech-tag">O(n log n)</span>
+          <span class="tech-tag">TPU Compatible</span>
           <span class="tech-tag">Interpretable by design</span>
         </div>
       </div> 
@@ -606,14 +728,14 @@
       <div class="section-content">
         <p class="section-label">Status</p>
         <h2 class="section-title">Project roadmap</h2>
-        <div style="display:flex;flex-direction:column;gap:0.75rem">
-          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Architecture design and theoretical foundation</span></div>
-          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Prototype implementation</span></div>
-          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.75)">Validation on real genomic data (E. coli, yeast, human chr22)</span></div>
-          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Patent filing in progress</span></div>
-          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Seeking GPU compute for scaling experiments</span></div>
-          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Full genome modelling (requires A100/H100)</span></div>
-          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:rgba(255,255,255,0.4)">Early access partner program</span></div>
+        <div style="display:flex;flex-direction:column;gap:0.85rem">
+          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:var(--text-secondary)">Architecture design and theoretical foundation</span></div>
+          <div class="status-item"><div class="status-dot done"></div><span style="font-size:0.875rem;color:var(--text-secondary)">Validation on real genomic data (E. coli, yeast, human chr22)</span></div>
+          <div class="status-item"><div class="status-dot active"></div><span style="font-size:0.875rem;color:var(--text-primary); font-weight: 500;">Currently developing and training models on local custom-built cluster</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:var(--text-muted)">Patent filing in progress</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:var(--text-muted)">Seeking compute sponsorship for scaling experiments</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:var(--text-muted)">Full genome modelling (requires A100/H100/TPU clusters)</span></div>
+          <div class="status-item"><div class="status-dot pending"></div><span style="font-size:0.875rem;color:var(--text-muted)">Early access partner program</span></div>
         </div>
       </div>
     </section>
@@ -633,19 +755,43 @@
           <div><span class="label font-mono">Status:</span> Pre‑revenue, R&amp;D</div>
         </div>
 
-        <div style="margin-top:2rem">
+        <div style="margin-top:2.5rem">
           <p class="section-label" style="margin-bottom:1rem">Team</p>
-          <div style="border:1px solid rgba(255,255,255,0.06);border-radius:0.5rem;padding:1.5rem">
-            <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center">
+          <div style="border:1px solid var(--border-light);border-radius:0.5rem;padding:1.5rem">
+            
+            <div class="team-grid">
+              
+              <!-- Cyprian -->
               <div>
-                <p style="font-weight:500;margin-bottom:0.25rem">Cyprian Kukielka</p>
-                <p style="color:rgba(255,255,255,0.4);font-size:0.875rem">Founder & Lead Researcher</p>
-                <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;margin-top:0.5rem">Self‑taught in machine learning and Fourier analysis. Built the wave architecture from scratch and filed a provisional patent.</p>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                  <div>
+                    <p style="font-weight:500;margin-bottom:0.25rem">Cyprian Kukielka</p>
+                    <p style="color:var(--text-muted);font-size:0.875rem">Founder & Lead Researcher</p>
+                  </div>
+                  <a href="https://www.linkedin.com/in/cyprian-kukielka-b4a76538b/" target="_blank" rel="noopener noreferrer" class="team-social-btn" aria-label="Cyprian's LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.875rem;margin-top:0.75rem">Self‑taught in machine learning and Fourier analysis. Built the wave architecture from scratch and filed a provisional patent.</p>
               </div>
+
+              <!-- Nojus -->
               <div>
-                <p style="font-weight:500;margin-bottom:0.25rem">Nojus Valatka</p>
-                <p style="color:rgba(255,255,255,0.4);font-size:0.875rem">Company Secretary / Operations</p>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                  <div>
+                    <p style="font-weight:500;margin-bottom:0.25rem">Nojus Valatka</p>
+                    <p style="color:var(--text-muted);font-size:0.875rem">Company Secretary / Operations</p>
+                  </div>
+                  <a href="https://www.linkedin.com/in/nojus-valatka-2a1198406/" target="_blank" rel="noopener noreferrer" class="team-social-btn" aria-label="Nojus's LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -659,23 +805,16 @@
       <div class="section-content">
         <p class="section-label">Supported by</p>
         <h2 class="section-title">Partners & Programs</h2>
-        <div class="partners-grid">
-<div class="partner-card">
-  <div class="partner-header">
-    <span class="partner-name">
-      <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-      <span style="color:rgba(255,255,255,0.45);margin-left:0.25rem">Cloud</span>
-    </span>
-    <span class="partner-badge">for Startups</span>
-  </div>
-  <p class="partner-desc">Accepted into the Google for Startups Cloud Program</p>
-</div>
-          <div class="partner-card pending">
+        <div style="margin-top: 1rem;">
+          <div class="partner-card">
             <div class="partner-header">
-              <span class="partner-name" style="color:rgba(255,255,255,0.7)">NVIDIA Inception</span>
-              <span class="partner-badge">pending</span>
+              <span class="partner-name">
+                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+                <span style="color:var(--text-muted);margin-left:0.25rem">Cloud</span>
+              </span>
+              <span class="partner-badge">for Startups</span>
             </div>
-            <p class="partner-desc">Application submitted —> awaiting decision</p>
+            <p class="partner-desc">Accepted into the Google for Startups Cloud Program</p>
           </div>
         </div>
       </div>
@@ -688,33 +827,15 @@
       <div class="section-content">
         <p class="section-label">Contact</p>
         <h2 class="section-title">Get in touch</h2>
-        <p class="text-body" style="margin-bottom:0.5rem">For partnership enquiries, early access requests, or compute collaboration.</p>
-        <div class="contact-grid">
+        <p class="text-body" style="margin-bottom:0.5rem">For early access requests, partnership enquiries, or TPU/GPU compute collaboration.</p>
+        
+        <div style="margin-top: 1.5rem;">
           <a href="mailto:contact@swaev.com" class="contact-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,13 2,6"/>
             </svg>
             <span>contact@swaev.com</span>
-          </a>
-          <a href="https://www.linkedin.com/in/cyprian-kukielka-b4a76538b/" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://github.com/ck5515" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://g.dev/ck5515" target="_blank" rel="noopener noreferrer" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            <span>Google Developer</span>
           </a>
         </div>
 
@@ -738,17 +859,17 @@
             <!-- Custom pin -->
             <div class="map-pin" aria-hidden="true">
               <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="18" cy="47" rx="8" ry="3" fill="rgba(0,0,0,0.3)"/>
-                <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="#deff9a"/>
-                <circle cx="18" cy="18" r="7" fill="rgba(0,0,0,0.25)"/>
-                <circle cx="18" cy="18" r="3.5" fill="#deff9a"/>
+                <ellipse cx="18" cy="47" rx="8" ry="3" fill="var(--text-primary)" style="opacity:0.15"/>
+                <path d="M18 0C8.06 0 0 8.06 0 18c0 12.6 16.2 29.4 16.88 30.12a1.5 1.5 0 002.24 0C19.8 47.4 36 30.6 36 18 36 8.06 27.94 0 18 0z" fill="var(--bg-graphic-color)"/>
+                <circle cx="18" cy="18" r="7" fill="var(--bg-color)" style="opacity:0.5"/>
+                <circle cx="18" cy="18" r="3.5" fill="var(--bg-graphic-color)"/>
               </svg>
               <div class="map-pin-label">SWAEV Genomics</div>
             </div>
           </div>
           <div class="map-caption">
             <div class="map-caption-left">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--bg-graphic-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
@@ -775,27 +896,39 @@
     <!-- Footer -->
     <footer>
       <div class="footer-inner">
-        <span style="color:rgba(255,255,255,0.25);font-size:0.75rem">© 2026 SWAEV Genomics.</span>
-        <div style="display:flex;align-items:center;gap:1rem;color:rgba(255,255,255,0.25);font-size:0.75rem">
+        <span style="color:var(--text-light);font-size:0.75rem">© 2026 SWAEV Genomics.</span>
+        <div style="display:flex;align-items:center;gap:1rem;color:var(--text-light);font-size:0.75rem">
           <span>Cork, Ireland · Dublin, D02 XE80</span>
-          <span style="width:1px;height:12px;background:rgba(255,255,255,0.15)"></span>
-          <a href="https://swaev.com" style="color:rgba(255,255,255,0.25);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.25)'">swaev.com</a>
+          <span style="width:1px;height:12px;background:var(--border-medium)"></span>
+          <a href="https://swaev.com" class="footer-link">swaev.com</a>
         </div>
       </div>
     </footer>
 
-    <!-- Background math symbols -->
-    <div class="math-bg" aria-hidden="true" id="mathBg"></div>
+    <!-- Background Biological Doodles -->
+    <div class="float-bg" aria-hidden="true" id="floatBg"></div>
 
     <script>
-      // Wave canvas animation
+      // Highly polished fluid wave animation
       (function() {
         const canvas = document.getElementById('waveCanvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
         let frame = 0;
+        let waveColor = '14,165,233'; // Default to light mode blue
+        let waveAlphaBase = 0.5;
         
+        // Sync JS animation parameters with CSS Variables
+        function updateThemeVars() {
+          const rootStyles = getComputedStyle(document.documentElement);
+          waveColor = rootStyles.getPropertyValue('--wave-color').trim() || '14,165,233';
+          waveAlphaBase = parseFloat(rootStyles.getPropertyValue('--wave-alpha-base')) || 0.5;
+        }
+        
+        updateThemeVars();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeVars);
+
         function resize() {
           canvas.width = window.innerWidth;
           canvas.height = window.innerHeight;
@@ -805,17 +938,46 @@
 
         function draw() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (let i = 0; i < 4; i++) {
-            const freq = 0.003 + i * 0.002;
-            const speed = 0.008 + i * 0.003;
-            const baseY = canvas.height * (0.35 + i * 0.1);
-            const alpha = 0.04 - i * 0.008;
+          const time = frame * 0.003;
+
+          // Create a fading linear gradient to give the wave depth across the screen
+          const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+          grad.addColorStop(0, `rgba(${waveColor}, 0)`);
+          grad.addColorStop(0.2, `rgba(${waveColor}, ${waveAlphaBase})`);
+          grad.addColorStop(0.8, `rgba(${waveColor}, ${waveAlphaBase})`);
+          grad.addColorStop(1, `rgba(${waveColor}, 0)`);
+
+          const numWaves = 4;
+          
+          for (let i = 0; i < numWaves; i++) {
+            // Complex fluid dynamics logic mixing sin and cos to avoid rigid mechanical lines
+            const freq1 = 0.0015 + i * 0.0004;
+            const freq2 = 0.0022 - i * 0.0002;
+            const speed1 = 1 + i * 0.15;
+            const speed2 = 0.7 + i * 0.2;
+            
+            // Varied amplitudes to layer the waves beautifully
+            const amp1 = 50 + i * 15;
+            const amp2 = 25 - i * 5;
+            
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-            ctx.lineWidth = 1;
-            for (let x = 0; x <= canvas.width; x += 3) {
-              const y = baseY + Math.sin(x * freq + frame * speed) * 30 + Math.sin(x * freq * 2.3 + frame * speed * 0.6) * 12;
-              x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            ctx.strokeStyle = grad;
+            // Back waves are thinner, front waves are slightly thicker
+            ctx.lineWidth = 1 + (numWaves - i) * 0.5;
+            
+            // Dynamic glow shadow for a neon/AI look
+            ctx.shadowBlur = 8 + i * 4;
+            ctx.shadowColor = `rgba(${waveColor}, ${waveAlphaBase * 0.5})`;
+            
+            const baseY = canvas.height * 0.45;
+
+            for (let x = 0; x <= canvas.width; x += 5) {
+              const y = baseY 
+                      + Math.sin(x * freq1 + time * speed1) * amp1 
+                      + Math.cos(x * freq2 - time * speed2) * amp2;
+              
+              if (x === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
             }
             ctx.stroke();
           }
@@ -825,26 +987,48 @@
         draw();
       })();
 
-      // Math background symbols
+      // Biology Background Floating Doodles Generation
       (function() {
-        const symbols = [
-          {text:'ψ(x,t)',x:8,y:12},{text:'∂ψ/∂t',x:78,y:18},{text:'∫₀^∞',x:42,y:8},
-          {text:'∇²ψ',x:15,y:72},{text:'ℱ{f}',x:85,y:65},{text:'cos(ωt+φ)',x:55,y:82},
-          {text:'∂²/∂x²',x:5,y:45},{text:'Σ',x:70,y:40},{text:'e^{iωt}',x:30,y:90},
-          {text:'∮',x:92,y:85},{text:'dx',x:48,y:50},{text:'λ',x:22,y:30}
-        ];
-        const container = document.getElementById('mathBg');
-        symbols.forEach(function(s, i) {
-          const span = document.createElement('span');
-          span.className = 'math-sym';
-          span.textContent = s.text;
-          span.style.left = s.x + '%';
-          span.style.top = s.y + '%';
-          span.style.fontSize = (11 + i % 3 * 2) + 'px';
-          span.style.opacity = 0.03 + (i % 4) * 0.005;
-          span.style.animation = 'drift ' + (20 + i * 3) + 's ease-in-out ' + (i * 2) + 's infinite';
+        // High quality inline SVGs
+        const dnaHelix = `<svg viewBox="0 0 50 50"><path d="M15 5 C 40 20, 40 30, 15 45 M35 5 C 10 20, 10 30, 35 45 M20 12 L30 12 M25 25 L25 25 M20 38 L30 38" stroke-width="2"/></svg>`;
+        const bacteriophage = `<svg viewBox="0 0 50 50"><path d="M 25 5 L 33 12 L 33 22 L 25 28 L 17 22 L 17 12 Z" stroke-width="1.5"/><path d="M 17 12 L 25 18 L 33 12 M 25 18 L 25 28 M 23 28 L 27 28 L 27 38 L 23 38 Z" stroke-width="1.5"/><path d="M 19 38 L 31 38 M 19 38 L 12 45 M 31 38 L 38 45 M 22 38 L 17 45 M 28 38 L 33 45" stroke-width="1.5"/></svg>`;
+        const circularCell = `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke-width="1.5"/><path d="M 18 20 Q 25 10 32 20 T 25 35 T 18 20" stroke-width="1.5"/><circle cx="15" cy="25" r="1.5" fill="currentColor"/><circle cx="35" cy="22" r="1.5" fill="currentColor"/><circle cx="25" cy="40" r="1.5" fill="currentColor"/></svg>`;
+        
+        const doodleBank = [dnaHelix, bacteriophage, circularCell];
+        const container = document.getElementById('floatBg');
+        
+        // Render 10 floating elements randomly around the screen
+        for (let i = 0; i < 10; i++) {
+          const span = document.createElement('div');
+          span.className = 'bio-doodle';
+          
+          // Randomly select one of the SVGs
+          span.innerHTML = doodleBank[i % doodleBank.length];
+          
+          // Randomized spread and sizes
+          const xPos = 5 + Math.random() * 85; 
+          const yPos = 5 + Math.random() * 85;
+          const size = 30 + Math.random() * 30; // 30px to 60px size variance
+          
+          span.style.left = `${xPos}%`;
+          span.style.top = `${yPos}%`;
+          span.style.width = `${size}px`;
+          span.style.height = `${size}px`;
+          
+          // Dynamic Opacity based on Theme var
+          const localOp = 0.3 + Math.random() * 0.7;
+          span.style.opacity = `calc(var(--float-opacity-base) * ${localOp})`;
+          
+          // Organic drifting animation with randomized speeds and delays + PULSING
+          const animDuration = 25 + Math.random() * 15; 
+          const animDelay = Math.random() * 10;
+          span.style.animation = `drift ${animDuration}s ease-in-out ${animDelay}s infinite alternate, bio-pulse 4s ease-in-out ${animDelay}s infinite`;
+          
+          // Give them a slight static rotation so they aren't all perfectly upright
+          span.style.transform = `rotate(${-15 + Math.random() * 30}deg)`;
+          
           container.appendChild(span);
-        });
+        }
       })();
 
       // Fade-in on scroll
