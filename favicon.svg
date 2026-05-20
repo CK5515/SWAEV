@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g><g transform="matrix(20,0,0,20,0,0)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="none" stroke-linecap="round" stroke-linejoin="round" width="50" height="50"><path stroke="#0EA5E9" stroke-width="3.5" d="M 25 4 L 35 11 L 35 22 L 25 29 L 15 22 L 15 11 Z"></path><path stroke="#0EA5E9" stroke-width="3.5" d="M 15 11 L 25 18 L 35 11 M 25 18 L 25 29"></path><path stroke="#0EA5E9" stroke-width="3.5" d="M 23 29 L 27 29 L 27 39 L 23 39 Z"></path><path stroke="#0EA5E9" stroke-width="3.5" d="M 20 39 L 10 47 M 25 39 L 25 48 M 30 39 L 40 47"></path></svg></g></g></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g><g transform="matrix(20,0,0,20,0,0)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="none" stroke-linecap="round" stroke-linejoin="round" width="50" height="50"><path stroke="#deff9a" stroke-width="3.5" d="M 25 4 L 35 11 L 35 22 L 25 29 L 15 22 L 15 11 Z"></path><path stroke="#deff9a" stroke-width="3.5" d="M 15 11 L 25 18 L 35 11 M 25 18 L 25 29"></path><path stroke="#deff9a" stroke-width="3.5" d="M 23 29 L 27 29 L 27 39 L 23 39 Z"></path><path stroke="#deff9a" stroke-width="3.5" d="M 20 39 L 10 47 M 25 39 L 25 48 M 30 39 L 40 47"></path></svg></g></g></svg></g></svg>
